@@ -22,7 +22,7 @@ static void config_window(allegro_data_t *allegro_data);
 static void register_event(allegro_data_t *allegro_data);
 static void start_timer(allegro_data_t *allegro_data);
 static void event_loop(allegro_data_t *allegro_data);
-static void destroy_allegro();
+static void destroy_allegro(allegro_data_t *allegro_data);
 
 int main (){
     allegro_data_t allegro_data = {0};
