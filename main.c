@@ -17,25 +17,25 @@ typedef struct
     ALLEGRO_EVENT_QUEUE *event_queue;
 } allegro_data_t;
 
-static void init_allegro(allegro_data_t *allegro_data);
+static void init(allegro_data_t *allegro_data);
 static void config_window(allegro_data_t *allegro_data);
 static void register_event(allegro_data_t *allegro_data);
 static void start_timer(allegro_data_t *allegro_data);
 static void event_loop(allegro_data_t *allegro_data);
-static void destroy_allegro(allegro_data_t *allegro_data);
+static void destroy(allegro_data_t *allegro_data);
 
 int main (){
     allegro_data_t allegro_data = {0};
-    init_allegro(&allegro_data);
+    init(&allegro_data);
     config_window(&allegro_data);
     register_event(&allegro_data);
     start_timer(&allegro_data);
     event_loop(&allegro_data);
-    destroy_allegro(&allegro_data);
+    destroy(&allegro_data);
     return 0;
 }
 
-void init_allegro(allegro_data_t *allegro_data)
+void init(allegro_data_t *allegro_data)
 {
     al_init();
     al_init_font_addon();
@@ -71,16 +71,18 @@ void start_timer(allegro_data_t *allegro_data)
 
 void event_loop(allegro_data_t *allegro_data)
 {
-    float frame = 0.f;
-    int pos_x = 0, pos_y = 0;
-    int current_frame_y = 161;
+    float frame = 0.0f;
+    float pos_x = 0.0f;
+    float pos_y = 0.0f;
+    float current_frame_y = 161.0f;
 
     while(true)
     {
         ALLEGRO_EVENT event;
         al_wait_for_event(allegro_data->event_queue, &event);
 
-        if( event.type == ALLEGRO_EVENT_DISPLAY_CLOSE ){
+        if( event.type == ALLEGRO_EVENT_DISPLAY_CLOSE )
+        {
             break;
         }
 
@@ -105,7 +107,8 @@ void event_loop(allegro_data_t *allegro_data)
         }
 
         frame += 0.3f;
-        if( frame > 3){
+        if( frame > 3)
+        {
             frame -= 3;
         }
 
@@ -113,12 +116,12 @@ void event_loop(allegro_data_t *allegro_data)
         al_draw_bitmap(allegro_data->bg, 0, 0, 0);
         al_draw_text(allegro_data->font, al_map_rgb(0,0,0), 7, 7, 0, "SCORE: dragon");
         al_draw_text(allegro_data->font, al_map_rgb(255,255,255), 5, 5, 0, "SCORE: dragon");
-        al_draw_bitmap_region(allegro_data->sprite, 191 * (int)frame, current_frame_y, 191, 161, pos_x, pos_y, 0);
+        al_draw_bitmap_region(allegro_data->sprite, 191.0f * (int)frame, current_frame_y, 191.0f, 161.0f, pos_x, pos_y, 0);
         al_flip_display();
     }
 }
 
-void destroy_allegro(allegro_data_t *allegro_data)
+void destroy(allegro_data_t *allegro_data)
 {
     al_destroy_bitmap(allegro_data->bg);
     al_destroy_bitmap(allegro_data->sprite);
