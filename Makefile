@@ -2,19 +2,17 @@
 TARGET ?= dragon
 SRC_DIRS ?= ./
 
-SRCS := $(shell find $(SRC_DIRS) -name '*.cpp' -or -name '*.c' -or -name '*.s')
+SRCS := $(shell find $(SRC_DIRS) -name '*.c')
 OBJS := $(addsuffix .o,$(basename $(SRCS)))
 DEPS := $(OBJS:.o=.d)
 
-INC_DIRS := $(shell find $(SRC_DIRS) -type d)
-INC_FLAGS := $(addprefix -I,$(INC_DIRS))
-
 CC := gcc 
 LDLIBS := -lallegro -lallegro_font -lallegro_dialog -lallegro_image -lallegro_ttf
-CFLAGS ?= $(INC_FLAGS) -g -O0 -Wall
+#CFLAGS ?= -std=c99 -g -O0 -Wall -Werror -Wextra -Wpedantic -Wconversion
+CFLAGS ?= -std=c99 -g -O0 -Wall -Werror -Wextra -Wpedantic
 
 $(TARGET): $(OBJS)
-	$(CC) $(LDFLAGS) $(OBJS) -o $@ $(LDLIBS)
+	$(CC) $(OBJS) -o $@ $(LDLIBS)
 
 .PHONY: all clean
 .PRECIOUS: %.o
