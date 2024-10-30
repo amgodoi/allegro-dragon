@@ -9,6 +9,7 @@ DEPS := $(OBJS:.o=.d)
 CC := gcc 
 LDLIBS := -lallegro -lallegro_font -lallegro_dialog -lallegro_image -lallegro_ttf
 CFLAGS ?= -std=c99 -g -O0 -Wall -Werror -Wextra -Wpedantic -Wconversion
+#CFLAGS ?= -std=c99 -g -O0 -Wall
 
 $(TARGET): $(OBJS)
 	$(CC) $(OBJS) -o $@ $(LDLIBS)
